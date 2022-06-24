@@ -58,6 +58,9 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
+## Swagger Doc
+in the path /api/docs you can find the swagger's documentation
+
 ## Testing
 
 Testing runs through a postman collection that is included in test folder
