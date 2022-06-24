@@ -11,5 +11,5 @@ import {
 export class CreateNumberDto {
     @ApiProperty()
     @IsNumber()
-    numero : string
+    numero : number
 }

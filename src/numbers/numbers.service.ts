@@ -7,13 +7,13 @@ import { Number } from './interfaces/numbers.interface';
 @Injectable()
 export class NumbersService {
 constructor(
-  @InjectModel('oddNumero') private readonly numeroOddModel: Model<Number>,
-  @InjectModel('evenNumero') private readonly numeroEvenModel: Model<Number>
+  @InjectModel('oddNumber') private readonly numeroOddModel: Model<Number>,
+  @InjectModel('evenNumber') private readonly numeroEvenModel: Model<Number>
 ){}
   
   async createNumber(createNumberDto: CreateNumberDto):Promise<Number> {
-    let numero = Number(createNumberDto.numero)
-    if(numero % 2 == 0) {
+    let number = Number(createNumberDto.numero)
+    if(number % 2 == 0) {
       const number = new this.numeroEvenModel(createNumberDto)
       return await number.save()
     }else{

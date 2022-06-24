@@ -1,25 +1,35 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, Res, HttpStatus} from '@nestjs/common';
 import { NumbersService } from './numbers.service';
 import { CreateNumberDto } from './dto/create-number.dto';
-import { ApiTags,ApiCreatedResponse,ApiForbiddenResponse,ApiResponse, } from '@nestjs/swagger';
+import { ApiTags,ApiCreatedResponse,ApiResponse } from '@nestjs/swagger';
 import { ErrorMessage, ErrorCodes } from 'src/ErrorMessage';
-import { isBlank } from 'src/str_utils';
 
 @ApiTags('Numbers')
 @Controller('kranio')
 export class NumbersController {
   constructor(
     private readonly numbersService: NumbersService) {}
-   
-  @ApiCreatedResponse({
-    description: 'El registro fue presentado correctamente.',
-    type: CreateNumberDto,
-  })
-  @ApiResponse({
-    status: 500,
-    description: 'Error inesperado',
-    type: ErrorMessage,
-  }) 
+
+    @ApiCreatedResponse({
+      description: 'El registro fue ingresado correctamente.',
+      type: CreateNumberDto,
+      status: 201
+    })
+
+    @ApiResponse({
+      status: 400,
+      description: 'El número ingresado es un decimal o no es un integer',
+    })
+
+    @ApiResponse({
+      status: 404,
+      description: 'Tabla no encontrada',
+    })
+
+    @ApiResponse({
+      status: 500,
+      description: 'Error inesperado',
+    }) 
 
   @Post('/number')
   async createNumber(
@@ -41,13 +51,23 @@ export class NumbersController {
     }
   }
   @ApiCreatedResponse({
-    description: 'El registro fue presentado correctamente.',
+    description: 'El registro fue llamado correctamente.',
     type: CreateNumberDto,
   })
+
+  @ApiResponse({
+    status: 400,
+    description: 'Tipo ingresado no es el esperado',
+  })
+
+  @ApiResponse({
+    status: 404,
+    description: 'Tabla no encontrada',
+  })
+
   @ApiResponse({
     status: 500,
     description: 'Error inesperado',
-    type: ErrorMessage,
   })
 
   @Get('/number/:tipo')

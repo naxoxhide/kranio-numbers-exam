@@ -5,8 +5,8 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { numberSchema } from './schemas/numbers.schema';
 
 @Module({
-  imports: [MongooseModule.forFeature([{name: 'oddNumero', schema: numberSchema, collection:'odd_numbers'},
-  {name: 'evenNumero', schema: numberSchema, collection:'even_numbers'}])],
+  imports: [MongooseModule.forFeature([{name: 'oddNumber', schema: numberSchema, collection:'odd_numbers'},
+  {name: 'evenNumber', schema: numberSchema, collection:'even_numbers'}])],
   controllers: [NumbersController],
   providers: [NumbersService]
 })
