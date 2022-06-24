@@ -60,7 +60,7 @@ $ npm run test:cov
 
 ## Testing
 
-Testing runs through a postman collection that is included in the mail
+Testing runs through a postman collection that is included in test folder
 
 
 ## Support
