@@ -17,13 +17,14 @@
 
 services:
   dev:
-    container_name: kraniotest
     build:
       context: .
       dockerfile: ./Dockerfile
     command: npm run start:dev
+    container_name: kranio_exam_cont
+    image: kranio_number
     ports:
-      - 3000:3000
+      - 4000:3000
       - 3001:9229
     networks:
       - nesjs-network
@@ -31,8 +32,8 @@ services:
       - mongodb
     restart: unless-stopped
   mongodb:
+    container_name: mongo
     image : mongo
-    container_name: kraniodb
     ports:
       - 27018:27017
     networks:
