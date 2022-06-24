@@ -1,0 +1,128 @@
+{
+	"info": {
+		"_postman_id": "0f5f33bc-eb1a-4816-a2f0-b3eb8e7e870e",
+		"name": "kranio testing",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "7658595"
+	},
+	"item": [
+		{
+			"name": "GET",
+			"item": [
+				{
+					"name": "Testing Get",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});",
+									"",
+									"pm.test(\"Status code debería ser 400, por parametro no soportado\", () => {",
+									"  pm.response.to.have.status(400);",
+									"});",
+									"",
+									"pm.test(\"Status code debería ser 200, por parametro soportado\", () => {",
+									"  pm.response.to.have.status(200);",
+									"});",
+									"",
+									"var data = pm.response.json();",
+									"",
+									"pm.test('El obj debe retornar un max de 10 números, obj actual tiene = ' + data[\"Type\"].length, function () {",
+									"    pm.expect(data[\"Type\"].length).to.lessThan(10)",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/kranio/number/even",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"kranio",
+								"number",
+								"even"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "POST",
+			"item": [
+				{
+					"name": "Testing Post",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Status code debería ser 400, por enviar en el body un atributo no soportado por el dto\", () => {",
+									"  pm.response.to.have.status(400);",
+									"});",
+									"",
+									"pm.test(\"Status code debería ser 200, por enviar body con los parametros soportados\", () => {",
+									"  pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Content-Type del header sea application/json\", () => {",
+									"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json; charset=utf-8');",
+									"});",
+									"",
+									"pm.test(\"El número ingresado es decimal, debería retornar mensaje de error\", () => {",
+									"  const responseJson = pm.response.json();",
+									"  pm.expect(responseJson[\"message\"][0]).to.eql(\"El número ingresado debe ser entero\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"numero\":2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/kranio/number",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"kranio",
+								"number"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
